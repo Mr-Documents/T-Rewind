@@ -31,7 +31,7 @@ export class FileWatcher extends EventEmitter {
         this.disposables.push(
             vscode.workspace.onDidCreateFiles(e => {
                 e.files.forEach(async uri => {
-                    const content = (await vscode.workspace.fs.readFile(uri)).toString();
+                    const content = Buffer.from(await vscode.workspace.fs.readFile(uri)).toString('utf8');
                     this.emit('change', {
                         uri: uri.toString(),
                         content: content,
