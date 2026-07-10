@@ -1,0 +1,484 @@
+/* Premium design CSS using native VS Code CSS variables */
+
+body {
+    padding: 12px;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--vscode-editor-background);
+    color: var(--vscode-editor-foreground);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.3);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.5);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 100%;
+}
+
+/* Card layout with glassmorphic touch */
+.card {
+    background: rgba(128, 128, 128, 0.05);
+    border: 1px solid rgba(128, 128, 128, 0.15);
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(4px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+    border-color: rgba(128, 128, 128, 0.25);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Header design */
+.header-card {
+    padding: 10px 12px;
+}
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.session-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.2px;
+}
+.session-subtitle {
+    font-size: 11px;
+    opacity: 0.65;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+}
+.icon-inline {
+    vertical-align: middle;
+}
+
+/* Recording button with pulse animation */
+.btn-record {
+    background: transparent;
+    border: 1.5px solid rgba(255, 59, 48, 0.4);
+    color: var(--vscode-editor-foreground);
+    padding: 5px 10px;
+    border-radius: 16px;
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn-record:hover {
+    background: rgba(255, 59, 48, 0.08);
+    border-color: rgba(255, 59, 48, 0.8);
+}
+
+.btn-record.recording {
+    background: rgba(255, 59, 48, 0.12);
+    border-color: rgb(255, 59, 48);
+    animation: recording-pulse 2s infinite ease-in-out;
+}
+
+@keyframes recording-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 6px rgba(255, 59, 48, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 59, 48, 0);
+    }
+}
+
+/* Timeline scrubber & playback control styling */
+.scrubber-container {
+    position: relative;
+    padding: 10px 0;
+    margin-bottom: 12px;
+}
+
+.timeline-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(128, 128, 128, 0.2);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+}
+
+.timeline-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--vscode-button-background);
+    border: 2px solid var(--vscode-editor-background);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s ease;
+}
+
+.timeline-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.timeline-ticks {
+    position: absolute;
+    width: 100%;
+    top: 10px;
+    height: 4px;
+    pointer-events: none;
+}
+
+.tick {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(128, 128, 128, 0.4);
+    transform: translate(-50%, -1px);
+}
+
+.tick.active {
+    background: var(--vscode-button-background);
+    box-shadow: 0 0 4px var(--vscode-button-background);
+}
+
+.tick.bookmarked {
+    background: #ffcc00;
+    width: 8px;
+    height: 8px;
+    transform: translate(-50%, -2px);
+    box-shadow: 0 0 4px #ffcc00;
+}
+
+.playback-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.btn-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-icon {
+    background: transparent;
+    border: none;
+    color: var(--vscode-editor-foreground);
+    opacity: 0.7;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s, background-color 0.2s;
+}
+
+.btn-icon:hover:not(:disabled) {
+    opacity: 1;
+    background: rgba(128, 128, 128, 0.15);
+}
+
+.btn-icon:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.btn-play-pause {
+    background: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-play-pause:hover:not(:disabled) {
+    background: var(--vscode-button-hoverBackground);
+    transform: scale(1.05);
+}
+
+.btn-play-pause:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.playback-speed {
+    display: flex;
+    align-items: center;
+}
+
+.select-speed {
+    background: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    border-radius: 4px;
+    padding: 4px 6px;
+    font-size: 11px;
+    outline: none;
+    cursor: pointer;
+}
+
+.snapshot-details {
+    border-top: 1px solid rgba(128, 128, 128, 0.15);
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 11px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.detail-label {
+    opacity: 0.65;
+}
+
+.detail-value {
+    font-weight: 500;
+}
+
+.text-highlight {
+    color: var(--vscode-textLink-foreground);
+}
+
+.badge-type {
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.badge-type.create {
+    background: rgba(76, 217, 100, 0.15);
+    color: #4cd964;
+}
+
+.badge-type.modify {
+    background: rgba(0, 122, 255, 0.15);
+    color: #007aff;
+}
+
+.badge-type.delete {
+    background: rgba(255, 59, 48, 0.15);
+    color: #ff3b30;
+}
+
+/* Sections & headers styling */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.section-header h3 {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.75;
+}
+
+.btn-action-text {
+    background: transparent;
+    border: none;
+    color: var(--vscode-textLink-foreground);
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.btn-action-text:hover:not(:disabled) {
+    background: rgba(128, 128, 128, 0.1);
+}
+
+.empty-state {
+    padding: 16px;
+    text-align: center;
+    opacity: 0.5;
+    font-style: italic;
+    font-size: 11px;
+}
+
+/* Bookmarks card styling */
+.bookmarks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.bookmark-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    background: rgba(128,128,128,0.05);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.bookmark-item:hover {
+    background: rgba(128,128,128,0.12);
+}
+
+.bookmark-icon-active {
+    color: #ffcc00;
+}
+
+.bookmark-label {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bookmark-time {
+    font-size: 10px;
+    opacity: 0.5;
+}
+
+/* Diff viewer panel styling */
+.btn-restore {
+    background: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: background-color 0.2s;
+}
+
+.btn-restore:hover {
+    background: var(--vscode-button-hoverBackground);
+}
+
+.diff-view-wrapper {
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    border-radius: 6px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.diff-header-filename {
+    background: rgba(128, 128, 128, 0.1);
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.diff-header-meta {
+    font-size: 9px;
+    opacity: 0.5;
+    margin-left: auto;
+}
+
+.diff-lines-container {
+    max-height: 250px;
+    overflow-y: auto;
+    font-family: var(--vscode-editor-font-family, "Courier New", Courier, monospace);
+    font-size: 11px;
+    padding: 6px 0;
+}
+
+.diff-line {
+    display: flex;
+    padding: 1px 8px;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.line-prefix {
+    width: 12px;
+    display: inline-block;
+    opacity: 0.6;
+    font-weight: bold;
+    user-select: none;
+}
+
+.line-code {
+    flex-grow: 1;
+}
+
+.diff-line-added {
+    background-color: rgba(76, 217, 100, 0.12);
+    color: #4cd964;
+}
+
+.diff-line-removed {
+    background-color: rgba(255, 59, 48, 0.12);
+    color: #ff3b30;
+    text-decoration: line-through;
+}
+
+.diff-line-unchanged {
+    opacity: 0.85;
+}
+
+.no-diff-msg {
+    padding: 16px;
+    text-align: center;
+    opacity: 0.5;
+    font-size: 11px;
+}
