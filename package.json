@@ -4,6 +4,7 @@
   "description": "Professional-grade VS Code extension for continuous, visual code history tracking with time-travel debugging.",
   "version": "0.0.1",
   "publisher": "time-travel-team",
+  "icon": "assets/icon.png",
   "engines": {
     "vscode": "^1.80.0"
   },
