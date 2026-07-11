@@ -334,4 +334,4 @@ If you find this extension helpful, please consider giving it a star on GitHub!
 
 ---
 
-**Built with ❤️ by the Time-Travel Team**
+**Built with ❤️**
