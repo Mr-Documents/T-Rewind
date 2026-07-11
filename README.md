@@ -97,7 +97,7 @@ code --install-extension time-travel-team.vscode-time-travel
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Mr-Documents/time-travel-debugger.git
+git clone https://github.com/Mr-Documents/T-Rewind.git
 cd "Time-Travel Debugger(VS Code)"
 ```
 
@@ -322,7 +322,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/Mr-Documents/time-travel-debugger/issues)
+- **Issues**: [GitHub Issues](https://github.com/Mr-Documents/T-Rewind/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/Mr-Documents/time-travel-debugger/discussions)
 - **Email**: thewillingdocument@gmail.com
 
