@@ -1,5 +1,6 @@
 import { FileSnapshot, TimelineState, SessionMetadata } from '../types';
 import { produce } from 'immer';
+import { DiffEngine } from './diffEngine';
 
 export class TimelineManager {
     private state: TimelineState;
@@ -16,9 +17,20 @@ export class TimelineManager {
     }
 
     public addSnapshot(snapshot: FileSnapshot) {
+        let finalSnapshot = { ...snapshot };
+
+        if (finalSnapshot.changeType === 'modify' && finalSnapshot.content !== undefined) {
+            const previousContent = DiffEngine.reconstructContent(this.state.snapshots, finalSnapshot.uri, finalSnapshot.timestamp - 1);
+            if (previousContent !== null) {
+                const patch = DiffEngine.createPatch(finalSnapshot.uri, previousContent, finalSnapshot.content);
+                finalSnapshot.delta = patch;
+                delete finalSnapshot.content;
+            }
+        }
+
         this.state = produce(this.state, draft => {
-            draft.snapshots.push(snapshot);
-            draft.currentTime = snapshot.timestamp;
+            draft.snapshots.push(finalSnapshot as FileSnapshot);
+            draft.currentTime = finalSnapshot.timestamp;
         });
         this.notify();
     }

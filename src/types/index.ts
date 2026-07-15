@@ -1,9 +1,9 @@
 export interface FileSnapshot {
     uri: string;
     timestamp: number;
-    content: string;
+    content?: string; // Only present for 'create' or base snapshots
     changeType: 'create' | 'modify' | 'delete';
-    delta?: string;
+    delta?: string; // Present for 'modify' to save memory
 }
 
 export interface Bookmark {

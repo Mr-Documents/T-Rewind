@@ -28,6 +28,35 @@
       {
         "command": "time-travel.openTimeline",
         "title": "Time-Travel: Open Timeline"
+      },
+      {
+        "command": "time-travel.exportSession",
+        "title": "Time-Travel: Export Session",
+        "icon": "$(export)"
+      },
+      {
+        "command": "time-travel.importSession",
+        "title": "Time-Travel: Import Session",
+        "icon": "$(import)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "time-travel.startRecording",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r",
+        "when": "!time-travel:recording"
+      },
+      {
+        "command": "time-travel.stopRecording",
+        "key": "ctrl+shift+s",
+        "mac": "cmd+shift+s",
+        "when": "time-travel:recording"
+      },
+      {
+        "command": "time-travel.openTimeline",
+        "key": "ctrl+shift+t",
+        "mac": "cmd+shift+t"
       }
     ],
     "viewsContainers": {

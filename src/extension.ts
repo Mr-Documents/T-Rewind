@@ -2,6 +2,8 @@ import * as vscode from 'vscode';
 import { FileWatcher } from './core/fileWatcher';
 import { TimelineManager } from './core/timelineManager';
 import { TimelineState } from './types';
+import { DiffEngine } from './core/diffEngine';
+import { exportSession, importSession } from './commands/sessionCommands';
 
 export function activate(context: vscode.ExtensionContext) {
     const sessionMetadata = {
@@ -58,7 +60,9 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('time-travel.stopRecording', stopRecording),
         vscode.commands.registerCommand('time-travel.openTimeline', () => {
             vscode.commands.executeCommand('workbench.view.extension.time-travel-explorer');
-        })
+        }),
+        vscode.commands.registerCommand('time-travel.exportSession', () => exportSession(timelineManager)),
+        vscode.commands.registerCommand('time-travel.importSession', () => importSession(timelineManager, () => provider.sendState()))
     );
 
     // Debounce maps for file changes during recording
@@ -240,7 +244,8 @@ class TimeTravelTimelineProvider implements vscode.WebviewViewProvider {
                 return;
             }
 
-            const data = new Uint8Array(Buffer.from(snapshot.content, 'utf8'));
+            const content = DiffEngine.reconstructContent(state.snapshots, uriStr, timestamp) || '';
+            const data = new Uint8Array(Buffer.from(content, 'utf8'));
             await vscode.workspace.fs.writeFile(uri, data);
             vscode.window.showInformationMessage(`Successfully restored file to timestamp state!`);
             this.sendCurrentFileContent();

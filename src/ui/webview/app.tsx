@@ -171,9 +171,10 @@ function App() {
 
     // Calculate diff lines
     const activeSnapshot = selectedSnapshotIndex >= 0 ? snapshots[selectedSnapshotIndex] : null;
+    const activeSnapshotContent = activeSnapshot ? (DiffEngine.reconstructContent(snapshots, activeSnapshot.uri, activeSnapshot.timestamp) || '') : '';
     const currentLiveContent = activeSnapshot ? (currentFilesContent[activeSnapshot.uri] || '') : '';
     const diffLines: DiffLine[] = activeSnapshot 
-        ? DiffEngine.computeDiff(activeSnapshot.content, currentLiveContent)
+        ? DiffEngine.computeDiff(activeSnapshotContent, currentLiveContent)
         : [];
 
     const getFileName = (uriStr: string) => {
